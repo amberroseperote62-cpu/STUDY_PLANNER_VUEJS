@@ -13,8 +13,9 @@ const fields = [
   { key: 'brk', title: 'Break', opts: range(1, 30, 1) },
 ];
 
-const saveName = () => { d.name = name.value.trim() || 'Student' };
-function clear() {
+const saveName = () => {
+  state.data.name = state.data.name.trim() || 'Student';
+};function clear() {
   if (confirm('Delete all your tasks, notes and history?')) { d.tasks = []; d.notes = []; d.log = {} }
 }
 </script>
@@ -25,7 +26,7 @@ function clear() {
     <p class="sub">{{ state.email }}</p>
     <div class="card">
       <label class="sub">Name</label>
-      <input v-model="name" maxlength="30" @blur="saveName" />
+      <input v-model="state.data.name" maxlength="30" @blur="saveName" />
       <div v-for="f in fields" :key="f.key" class="row">
         <span class="g">{{ f.title }}</span>
         <select v-model.number="d[f.key]">
@@ -34,7 +35,16 @@ function clear() {
       </div>
       <div class="row">
         <span class="g">Dark mode</span>
-        <input v-model="d.dark" type="checkbox" style="width: 22px; height: 22px" />
+        <button
+          type="button"
+          class="switch"
+          :class="{ on: d.dark }"
+          role="switch"
+          :aria-checked="d.dark"
+          @click="d.dark = !d.dark"
+        >
+          <span class="switch-handle"></span>
+        </button>
       </div>
     </div>
     <div class="form">

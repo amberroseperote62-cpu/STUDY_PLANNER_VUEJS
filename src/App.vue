@@ -18,7 +18,11 @@ const initials = computed(() => {
 </script>
 
 <template>
-  <Login v-if="!state.email || !state.data" />
+  <div v-if="state.loading" class="auth" style="text-align: center; margin-top: 25vh;">
+    <h1 style="font-size: 28px;">Study Planner</h1>
+    <p class="sub">Connecting to Firebase...</p>
+  </div>
+  <Login v-else-if="!state.email || !state.data" />
   <div v-else class="layout">
     <nav class="side">
       <div class="side-brand">
